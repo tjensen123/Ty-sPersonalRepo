@@ -8,44 +8,137 @@ namespace ClassLibrary1
 {
     public class Calculator
     {
-        private Stack<char> Operators;
+        private Stack<string> Operators;
         private Stack<double> Operands;
         private int level;
 
         public Calculator()
         {
-            Operators = new Stack<char>();
+            Operators = new Stack<string>();
             Operands = new Stack<double>();
             level = 0;
         }
 
         public double Evaluate()
         {
+            Levels lev = new Levels(1);
             switch (level)
             {
                 case 1:
+                    lev =  new Levels(1);
+                    break;
 
             }
+            foreach (double s in lev.GetOperandStack())
+            {
+                Operands.Push(s);
+            }
+            foreach(string t in lev.GetOperatorStack())
+            {
+                Operators.Push(t);
+            }
+
+
+            while (Operands.Count != 1)
+            {
+                Operate();
+            }
+            return Operands.Pop();
         }
 
-        public double Operate()
+        public Boolean Operate()
         {
             double  a = Operands.Pop();
             double b = Operands.Pop();
 
-
-            switch (Operators.Pop())
+            string oper = "";
+            if(Operators.Count > 0)
             {
-                case '+':
-                    
+                oper = Operators.Pop();
             }
+            switch (oper)
+            {
+                case "+":
+                    if (Operators.Count > 0)
+                    {
+                        if (Operators.Peek() == "*") 
+                        {
+                            return false;
+                        }
+                        else if(Operators.Peek() == "/")
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            Operands.Push(a + b);
+                        }
+                    }
+                    else
+                    {
+                        Operands.Push(a + b);
+                    }
+                    return true;
+                case "-":
+                    if (Operators.Count > 0)
+                    {
+                        if (Operators.Peek() == "*")
+                        {
+                            Operands.Push(a * b);
+                        }
+                        else if (Operators.Peek() == "/")
+                        {
+                            Operands.Push(a / b);
+                        }
+                        else
+                        {
+                            Operands.Push(a - b);
+                        }
+                    }
+                    else
+                    {
+                        Operands.Push(a - b);
+                    }
+                    return true;
+                case "*":
+                    Operands.Push(a * b);
+                    return true;
+                case "/":
+                    if (b == 0)
+                    {
+                        return false;
+                    }
+                    Operands.Push(a / b);
+                    return true;
+            }
+            return true;
             
         }
 
-        public void level1()
+        public Boolean SetLevel(int lev)
         {
-
+            level = lev;
+            return true;
         }
+
+        override
+        public string ToString()
+        {
+            string result = "";
+            Stack<double> numbers = Operands;
+            Stack<string> temp = Operators;
+            foreach(double d in numbers)
+            {
+                result += d;
+                if(Operators.Count > 0)
+                {
+                    result += Operators.Pop();
+                }
+                
+            }
+            return result;
+        }
+        
 
     }
 }

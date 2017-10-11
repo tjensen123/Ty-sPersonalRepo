@@ -19,7 +19,7 @@ namespace ClassLibrary1
             Operands = new Stack<double>();
 
             level = _level;
-
+            CreateValues();
         }   
 
         public Boolean CreateValues()
@@ -28,9 +28,16 @@ namespace ClassLibrary1
             switch (level)
             {
                 case 1:
-                    Operands.Push(rnd.Next(1, 9));
-                    Operands.Push(rnd.Next(1, 9));
+                    Operands.Push(rnd.Next(0, 9));
+                    Operands.Push(rnd.Next(0, 9));
                     Operators.Push(op[rnd.Next(0, 4)]);
+                    if (Operators.Peek() == "/" || Operands.Peek() == 0)
+                    {
+                        while (Operands.Peek() == 0)
+                        {
+                            Operands.Push(rnd.Next(0, 9));
+                        }
+                    }
                     break;
 
                     
