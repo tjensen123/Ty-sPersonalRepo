@@ -13,7 +13,7 @@ namespace CalculatorTest
             Calculator c = new Calculator();
             c.SetLevel(1);
 
-            Assert.AreEqual(c.Evaluate(), c.ToString());
+            Assert.AreEqual(c.Evaluate(), c.GetString());
 
         }
     }

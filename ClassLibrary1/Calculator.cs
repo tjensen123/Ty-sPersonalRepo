@@ -11,11 +11,13 @@ namespace ClassLibrary1
         private Stack<string> Operators;
         private Stack<double> Operands;
         private int level;
+        string stringFormula;
 
         public Calculator()
         {
             Operators = new Stack<string>();
             Operands = new Stack<double>();
+            stringFormula = "";
             level = 0;
         }
 
@@ -37,6 +39,7 @@ namespace ClassLibrary1
             {
                 Operators.Push(t);
             }
+            
 
 
             while (Operands.Count != 1)
@@ -71,11 +74,13 @@ namespace ClassLibrary1
                         }
                         else
                         {
+                            stringFormula += a + "+" + b;
                             Operands.Push(a + b);
                         }
                     }
                     else
                     {
+                        stringFormula += a + "+" + b;
                         Operands.Push(a + b);
                     }
                     return true;
@@ -84,23 +89,28 @@ namespace ClassLibrary1
                     {
                         if (Operators.Peek() == "*")
                         {
+                            stringFormula += a + "*" + b;
                             Operands.Push(a * b);
                         }
                         else if (Operators.Peek() == "/")
                         {
+                            stringFormula += a + "/" + b;
                             Operands.Push(a / b);
                         }
                         else
                         {
+                            stringFormula += a + "-" + b;
                             Operands.Push(a - b);
                         }
                     }
                     else
                     {
+                        stringFormula += a + "-" + b;
                         Operands.Push(a - b);
                     }
                     return true;
                 case "*":
+                    stringFormula += a + "*" + b;
                     Operands.Push(a * b);
                     return true;
                 case "/":
@@ -108,6 +118,7 @@ namespace ClassLibrary1
                     {
                         return false;
                     }
+                    stringFormula += a + "/" + b;
                     Operands.Push(a / b);
                     return true;
             }
@@ -137,6 +148,11 @@ namespace ClassLibrary1
                 
             }
             return result;
+        }
+
+        public string GetString()
+        {
+            return stringFormula;
         }
         
 
