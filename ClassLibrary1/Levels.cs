@@ -30,17 +30,31 @@ namespace ClassLibrary1
                 case 1:
                     Operands.Push(rnd.Next(0, 9));
                     Operands.Push(rnd.Next(0, 9));
-                    Operators.Push(op[rnd.Next(0, 4)]);
-                    if (Operators.Peek() == "/" || Operands.Peek() == 0)
+                    Operators.Push(op[rnd.Next(0, 2)]);
+                    if (Operators.Peek() == "/" && Operands.Peek() == 0)
                     {
                         while (Operands.Peek() == 0)
                         {
+                            Operands.Pop();
+                            Operands.Push(rnd.Next(0, 9));
+                        }
+                    }
+                    break;
+                case 2:
+                    Operands.Push(rnd.Next(0, 9));
+                    Operands.Push(rnd.Next(0, 9));
+                    Operators.Push(op[rnd.Next(0, 3)]);
+                    if (Operators.Peek() == "/" && Operands.Peek() == 0)
+                    {
+                        while (Operands.Peek() == 0)
+                        {
+                            Operands.Pop();
                             Operands.Push(rnd.Next(0, 9));
                         }
                     }
                     break;
 
-                    
+
             }
             return true;
         }

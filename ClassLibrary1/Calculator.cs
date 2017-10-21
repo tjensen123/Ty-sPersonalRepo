@@ -42,7 +42,7 @@ namespace ClassLibrary1
             
 
 
-            while (Operands.Count != 1)
+            while (Operands.Count > 1)
             {
                 Operate();
             }

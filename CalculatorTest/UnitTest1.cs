@@ -15,6 +15,7 @@ namespace CalculatorTest
 
             Assert.AreEqual(c.Evaluate(), c.GetString());
 
+
         }
     }
 }
